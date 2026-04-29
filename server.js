@@ -5,9 +5,9 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// =============================================
+
 // MIDDLEWARE CONFIGURATION
-// =============================================
+
 
 // Enhanced CORS configuration
 app.use(cors({
@@ -64,9 +64,9 @@ function fixCyrillicEncoding(text) {
   return text;
 }
 
-// =============================================
+
 // API KEY SECURITY SYSTEM
-// =============================================
+
 
 const API_KEYS = {
   USER: process.env.USER_API_KEY || 'user_key_123',
@@ -133,9 +133,9 @@ const validateApiKeyOptional = (req, res, next) => {
   next();
 };
 
-// =============================================
+
 // USER ROLES AND POINTS SYSTEM
-// =============================================
+
 
 const USER_ROLES = {
   USER: 0,
@@ -151,9 +151,9 @@ const POINTS_SYSTEM = {
   LIKE_RECEIVED: 1
 };
 
-// =============================================
+
 // MONGODB CONFIGURATION
-// =============================================
+
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://kasyak-render:kasyak-database-password@hackathon-data.uo8k8xi.mongodb.net/?appName=hackathon-data";
 
@@ -193,9 +193,9 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-// =============================================
+
 // USER SYNC AND VERIFICATION ENDPOINTS
-// =============================================
+
 
 // Sync user with backend (for login)
 app.post('/api/users/sync', validateApiKey, async (req, res) => {
@@ -320,9 +320,9 @@ app.post('/api/users/verify-role', validateApiKey, async (req, res) => {
   }
 });
 
-// =============================================
+
 // USER MANAGEMENT ROUTES
-// =============================================
+
 
 // Create new user (public - for registration)
 app.post('/api/users', validateApiKey, async (req, res) => {
@@ -541,9 +541,9 @@ app.get('/api/users/me', validateApiKey, async (req, res) => {
   }
 });
 
-// =============================================
+
 // SECURE USER MANAGEMENT ROUTES (ADMIN ONLY)
-// =============================================
+
 
 // Get all users (admin only)
 app.get('/api/users', validateApiKey, requireRole(USER_ROLES.ADMIN), async (req, res) => {
@@ -728,9 +728,9 @@ app.get('/api/users/stats/overview', validateApiKey, requireRole(USER_ROLES.ADMI
   }
 });
 
-// =============================================
+
 // POINTS MANAGEMENT FUNCTIONS
-// =============================================
+
 
 // Award points to user
 async function awardPoints(userId, pointsType, itemId) {
@@ -789,9 +789,9 @@ async function awardLikePoints(contentOwnerId, contentId) {
   }
 }
 
-// =============================================
+
 // SECURE REPORTS API ROUTES
-// =============================================
+
 
 // Get all reports (public - requires API key)
 app.get('/api/reports', validateApiKey, async (req, res) => {
@@ -909,9 +909,9 @@ app.delete('/api/reports/:id', validateApiKey, requireRole(USER_ROLES.ADMIN), as
   }
 });
 
-// =============================================
+
 // SECURE COORDINATES API ROUTES
-// =============================================
+
 
 // Get all coordinates (public - requires API key)
 app.get('/api/coordinates', validateApiKey, async (req, res) => {
@@ -1031,9 +1031,9 @@ app.delete('/api/coordinates/:id', validateApiKey, requireRole(USER_ROLES.ADMIN)
   }
 });
 
-// =============================================
+
 // SECURE POSTS API ROUTES
-// =============================================
+
 
 // Get all posts (editor and admin only)
 app.get('/api/posts', validateApiKey, requireRole(USER_ROLES.EDITOR), async (req, res) => {
@@ -1161,9 +1161,9 @@ app.delete('/api/posts/:id', validateApiKey, requireRole(USER_ROLES.ADMIN), asyn
   }
 });
 
-// =============================================
+
 // COMMENTS SYSTEM ROUTES
-// =============================================
+
 
 // Get comments for a specific parent (public - requires API key)
 app.get('/api/comments/:parentType/:parentId', validateApiKey, async (req, res) => {
@@ -1332,9 +1332,9 @@ async function updateCommentCount(parentType, parentId, increment = 1) {
   }
 }
 
-// =============================================
+
 // LIKES/DISLIKES SYSTEM ROUTES
-// =============================================
+
 
 // Get reactions for a specific parent (public - requires API key)
 app.get('/api/reactions/:parentType/:parentId', validateApiKey, async (req, res) => {
@@ -1543,9 +1543,9 @@ async function updateReactionCounts(parentType, parentId) {
   }
 }
 
-// =============================================
+
 // LEADERBOARD ROUTES
-// =============================================
+
 
 // Get points leaderboard (public - requires API key)
 app.get('/api/leaderboard/points', validateApiKey, async (req, res) => {
@@ -1606,9 +1606,9 @@ app.get('/api/leaderboard/engagement', validateApiKey, async (req, res) => {
   }
 });
 
-// =============================================
+
 // ADMIN DASHBOARD ROUTES
-// =============================================
+
 
 // Get dashboard stats (admin only)
 app.get('/api/admin/stats', validateApiKey, requireRole(USER_ROLES.ADMIN), async (req, res) => {
@@ -1640,9 +1640,9 @@ app.get('/api/admin/stats', validateApiKey, requireRole(USER_ROLES.ADMIN), async
   }
 });
 
-// =============================================
+
 // HEALTH CHECK AND ROOT ROUTES
-// =============================================
+
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
@@ -1735,9 +1735,9 @@ app.get('/', (req, res) => {
   });
 });
 
-// =============================================
+
 // ERROR HANDLING AND GRACEFUL SHUTDOWN
-// =============================================
+
 
 // 404 handler
 app.use('*', (req, res) => {
