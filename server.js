@@ -177,16 +177,16 @@ const LIKES_COLLECTION = 'likes';
 async function connectToDatabase() {
   try {
     await client.connect();
-    console.log("✅ Successfully connected to MongoDB Atlas!");
+    console.log(" Successfully connected to MongoDB Atlas!");
     
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. Connection is stable.");
     
-    // ✅ TEMPORARY: Skip index creation to avoid deployment issues
-    console.log("⚠️ Index creation skipped - server running without indexes");
+    //  TEMPORARY: Skip index creation to avoid deployment issues
+    console.log(" Index creation skipped - server running without indexes");
     
   } catch (error) {
-    console.error("❌ Failed to connect to MongoDB", error);
+    console.error(" Failed to connect to MongoDB", error);
     process.exit(1);
   }
 }
@@ -1760,14 +1760,14 @@ process.on('SIGINT', async () => {
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📁 Connected to MongoDB Atlas: hackathon-data.uo8k8xi.mongodb.net`);
-  console.log(`🔑 API Key Security System: USER, EDITOR, ADMIN`);
-  console.log(`🔒 Security: All endpoints require API key`);
-  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📊 Database: ${DB_NAME}`);
-  console.log(`💬 New Features: Comments, Reactions, Points System`);
-  console.log(`🏆 Leaderboards: Points & Engagement`);
-  console.log(`📋 Public data access: All GET endpoints require API key`);
-  console.log(`🏥 Health check: http://0.0.0.0:${PORT}/health`);
+  console.log(` Server running on port ${PORT}`);
+  console.log(` Connected to MongoDB Atlas: hackathon-data.uo8k8xi.mongodb.net`);
+  console.log(` API Key Security System: USER, EDITOR, ADMIN`);
+  console.log(` Security: All endpoints require API key`);
+  console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(` Database: ${DB_NAME}`);
+  console.log(` New Features: Comments, Reactions, Points System`);
+  console.log(` Leaderboards: Points & Engagement`);
+  console.log(` Public data access: All GET endpoints require API key`);
+  console.log(` Health check: http://0.0.0.0:${PORT}/health`);
 });
